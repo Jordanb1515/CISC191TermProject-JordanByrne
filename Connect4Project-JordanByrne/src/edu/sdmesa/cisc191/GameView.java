@@ -1,13 +1,7 @@
 package edu.sdmesa.cisc191;
 
-import java.awt.BorderLayout;
-import java.awt.Dimension;
-import java.awt.GridLayout;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
+import java.awt.*;
+import javax.swing.*;
 
 /**
  * Lead Author(s):
@@ -19,7 +13,7 @@ import javax.swing.JPanel;
  * 
  * Version/date: 1.0 10/10/25
  * 
- * Responsibilities of class: The GUI component for the fishing game responsible for the view
+ * Responsibilities of class: The GUI component for the connect 4 game responsible for the view
  * 
  */
 
@@ -28,7 +22,7 @@ public class GameView extends JFrame
 	private GameModel model;
 	
 	/**
-	 * Constructor for the GoneFishingView class
+	 * Constructor for the GameView class
 	 * @param model
 	 */
 	public GameView(GameModel model)
@@ -37,21 +31,30 @@ public class GameView extends JFrame
 		this.model = model;
 		//set title and layout 
 		this.setTitle("Connect 4");
-		this.setLayout(new BorderLayout()); 
+		this.setLayout(new BorderLayout(10,15)); //to create gaps
+		this.setBackground(Color.LIGHT_GRAY);
 		
 		//create a panel and label for the instructions of the game
 		JPanel instructions = new JPanel();                                    
 		JLabel instructionLabel = new JLabel("Try to connect 4 of your color pieces in a row"); 
 		instructions.add(instructionLabel);           
-		this.add(instructions, BorderLayout.WEST);   
+		this.add(instructions, BorderLayout.WEST);  
+		
+		//add panel to top
+		JPanel turn = new JPanel();                                    
+		JLabel turnLabel = new JLabel("---- player's turn"); //changes for whose turn
+		turn.add(turnLabel);           
+		this.add(turn, BorderLayout.NORTH);
 		
 		//create a panel and label for the buttons of the game
 		JPanel buttons = new JPanel();
 		buttons.setPreferredSize(new Dimension(400, 300)); 
-		buttons.setLayout(new GridLayout(7, 6));
-		for(int i = 0; i < 7; i++) {
-			for(int j = 0; j < 6; j++) {
+		buttons.setLayout(new GridLayout(6, 7));
+		for(int i = 0; i < 6; i++) {
+			for(int j = 0; j < 7; j++) {
 				GameButton newButton = new GameButton(i,j);
+				newButton.setBackground(Color.BLUE);
+				buttons.add(newButton);
 			}
 			
 		}
@@ -64,8 +67,18 @@ public class GameView extends JFrame
 		this.add(bottom, BorderLayout.SOUTH);
 		
 		//make GUI visible
+		this.pack();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setVisible(true);
+	}
+	
+	/**
+	 * Starts the game
+	 * @param args not used
+	 */
+	public static void main(String[] args)
+	{
+		new GameView(new GameModel());
 	}
 
 }
