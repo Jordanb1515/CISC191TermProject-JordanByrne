@@ -20,6 +20,7 @@ import javax.swing.*;
 public class GameView extends JFrame
 {
 	private GameModel model;
+	private JLabel turnLabel;
 	
 	/**
 	 * Constructor for the GameView class
@@ -42,7 +43,7 @@ public class GameView extends JFrame
 		
 		//add panel to top
 		JPanel turn = new JPanel();                                    
-		JLabel turnLabel = new JLabel("---- player's turn"); //changes for whose turn
+		turnLabel = new JLabel("Player 1's Turn"); //changes for whose turn
 		turn.add(turnLabel);           
 		this.add(turn, BorderLayout.NORTH);
 		
@@ -54,10 +55,12 @@ public class GameView extends JFrame
 			for(int j = 0; j < 7; j++) {
 				GameButton newButton = new GameButton(i,j);
 				newButton.setBackground(Color.BLUE);
+				newButton.addActionListener(new GameButtonListener(model, this, newButton));
 				buttons.add(newButton);
 			}
 			
 		}
+		this.pack();
 		this.add(buttons, BorderLayout.CENTER);
 		
 		//add final panel and label at bottom to show programmer
@@ -72,13 +75,23 @@ public class GameView extends JFrame
 		setVisible(true);
 	}
 	
-	/**
-	 * Starts the game
-	 * @param args not used
-	 */
+
 	public static void main(String[] args)
 	{
 		new GameView(new GameModel());
+	}
+	
+	/**
+	 * Purpose: Update GUI for user
+	 */
+	public void updateUI()
+	{
+		if(model.getTotalSpaces() % 2 == 0) {
+			turnLabel.setText("Player 1's Turn");
+		}
+		else {
+			turnLabel.setText("Player 2's Turn");
+		}
 	}
 
 }

@@ -1,5 +1,6 @@
 package edu.sdmesa.cisc191;
 
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -39,24 +40,27 @@ public class GameButtonListener implements ActionListener
 		
 	}
 	
-	@Override
 	public void actionPerformed(ActionEvent e)
 	{
 //		try{// TODO Auto-generated method stub
-//		if(!(gameModel.pieceAt(gameButton.getRow()-1,gameButton.getColumn())))
-//			throw (new IllegalMoveException());
+//			if (gameModel.grid[gameButton.getRow][gameButton.getCol] != 0) 
+//				throw (new IllegalMoveException());
 //		
-//		if(gameModel.player1Turn) { //player1turn is boolean
-//			gameButton.setText("O");
-//			//set text color red
-//		}else {
-//			gameButton.setText("O");
-//			//set color yellow
-//		}
+		if(gameModel.player1Turn()) { //player1turn is boolean
+			gameButton.setText("O");
+			//set text color red
+			gameButton.setForeground(Color.RED);
+		}else {
+			gameButton.setText("O");
+			//set color yellow
+			gameButton.setForeground(Color.YELLOW);
+		}
 //		}catch(Exception i) {
 //			i.getStackTrace();
 //			//print getMessage
 //		}
+		//update the screen 
+				gameView.updateUI();
 		
 	}
 

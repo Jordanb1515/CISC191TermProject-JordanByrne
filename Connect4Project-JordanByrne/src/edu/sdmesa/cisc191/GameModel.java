@@ -43,6 +43,30 @@ public class GameModel
 		return false;
 		//return for win condition
 	}
+	
+	/**
+	 * Actions to perform when a button is pressed
+	 * @param row of the pressed button
+	 * @param column of the pressed button
+	 * @return boolean 4row for if player has won
+	 */
+	public boolean player1Turn()
+	{
+		boolean player1Turn;
+		if(this.totalSpaces % 2 == 0) {
+			player1Turn = true;
+		}else {
+			player1Turn = false;
+		}
+		
+		totalSpaces--;
+		return player1Turn;
+	}
+	
+	public int getTotalSpaces() {
+		return totalSpaces;
+	}
+	
 
 
 }
