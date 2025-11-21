@@ -16,7 +16,7 @@ package edu.sdmesa.cisc191;
 
 public class IllegalMoveException extends Exception
 {
-	public String getMessage() {
-		return "Illegal move. Choose different button";
-	}
+    public IllegalMoveException(String message) {
+        super(message);
+    }
 }

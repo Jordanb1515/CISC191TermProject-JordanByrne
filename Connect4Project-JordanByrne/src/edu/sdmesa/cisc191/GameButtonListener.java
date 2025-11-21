@@ -4,6 +4,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.JOptionPane;
+
 /**
  * Lead Author(s):
  * @ Jordan Byrne
@@ -42,27 +44,45 @@ public class GameButtonListener implements ActionListener
 	
 	public void actionPerformed(ActionEvent e)
 	{
-//		try{// TODO Auto-generated method stub
-//			if (gameModel.grid[gameButton.getRow][gameButton.getCol] != 0) 
-//				throw (new IllegalMoveException());
-//		
-		if(gameModel.player1Turn()) { //player1turn is boolean
-			gameButton.setText("O");
-			//set text color red
-			gameButton.setForeground(Color.RED);
-		}else {
-			gameButton.setText("O");
-			//set color yellow
-			gameButton.setForeground(Color.YELLOW);
-		}
-//		}catch(Exception i) {
-//			i.getStackTrace();
-//			//print getMessage
-//		}
-		//update the screen 
-				gameView.updateUI();
-		
-	}
+	    try {
+	        int row = gameButton.getRow();
+	        int col = gameButton.getColumn();
 
+	        // make sure valid space is pressed
+	        if (row < gameModel.ROWS - 1 && gameModel.getGrid()[row + 1][col] == 0) {
+	            throw new IllegalMoveException( "Invalid move! Piece must be placed on the bottom or on another piece.");
+	        }
+
+	        // throw exception if player tries to place in occupied spot
+	        if (gameModel.getGrid()[row][col] != 0) {
+	            throw new IllegalMoveException("This space is already taken!");
+	        }
+
+	        // determine whose turn it is and place piece
+	        int playerVal;
+	        if (gameModel.player1Turn()) {
+	            playerVal = 1;
+	        } else {
+	            playerVal = 2;
+	        }
+	        gameModel.getGrid()[row][col] = playerVal;
+
+	        gameButton.setText("●");
+	        gameButton.setFont(new Font("Arial", Font.BOLD, 36));
+	        if (playerVal == 1) {
+	            gameButton.setForeground(Color.RED);
+	        } else {
+	            gameButton.setForeground(Color.YELLOW);
+	        }
+
+	        // switch control to other player
+	        gameModel.togglePlayer();
+	        gameView.updateUI();
+
+	    } catch (IllegalMoveException ex) {
+	        // Show the error message without terminating the program
+	        JOptionPane.showMessageDialog(null, ex.getMessage(), "Illegal Move", JOptionPane.ERROR_MESSAGE);
+	    }
+	}
 
 }

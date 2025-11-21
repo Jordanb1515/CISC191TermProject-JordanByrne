@@ -20,7 +20,9 @@ import java.util.Random;
 
 public class GameModel
 {
-	private boolean[][] grid = new boolean[7][6]; //2D array to resemble a grid pattern for the game
+	public static final int ROWS = 6;
+	public static final int COLUMNS = 7;
+	private int[][] grid = new int[ROWS][COLUMNS]; //2D array to resemble a grid pattern for the game
 	private int totalSpaces = 42; //max number of turns
 	
 
@@ -44,28 +46,45 @@ public class GameModel
 		//return for win condition
 	}
 	
-	/**
-	 * Actions to perform when a button is pressed
-	 * @param row of the pressed button
-	 * @param column of the pressed button
-	 * @return boolean 4row for if player has won
-	 */
-	public boolean player1Turn()
-	{
-		boolean player1Turn;
-		if(this.totalSpaces % 2 == 0) {
-			player1Turn = true;
-		}else {
-			player1Turn = false;
-		}
-		
-		totalSpaces--;
-		return player1Turn;
-	}
 	
 	public int getTotalSpaces() {
 		return totalSpaces;
 	}
+
+	/**
+	 * @return the grid
+	 */
+	public int[][] getGrid()
+	{
+		return grid;
+	}
+
+	/**
+	 * @param grid the grid to set
+	 */
+	public void setGrid(int[][] grid)
+	{
+		this.grid = grid;
+	}
+	
+	
+    private int currentPlayer = 1;
+
+    public boolean player1Turn() {
+        return currentPlayer == 1;
+    }
+
+    public int getCurrentPlayer() {
+        return currentPlayer;
+    }
+
+    public void togglePlayer() {
+    	if (currentPlayer == 1) {
+    	    currentPlayer = 2;
+    	} else {
+    	    currentPlayer = 1;
+    	}
+    }
 	
 
 

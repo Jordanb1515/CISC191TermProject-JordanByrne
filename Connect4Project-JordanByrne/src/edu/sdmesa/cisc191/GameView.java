@@ -51,8 +51,8 @@ public class GameView extends JFrame
 		JPanel buttons = new JPanel();
 		buttons.setPreferredSize(new Dimension(400, 300)); 
 		buttons.setLayout(new GridLayout(6, 7));
-		for(int i = 0; i < 6; i++) {
-			for(int j = 0; j < 7; j++) {
+		for(int i = 0; i < model.ROWS; i++) {
+			for(int j = 0; j < model.COLUMNS; j++) {
 				GameButton newButton = new GameButton(i,j);
 				newButton.setBackground(Color.BLUE);
 				newButton.addActionListener(new GameButtonListener(model, this, newButton));
