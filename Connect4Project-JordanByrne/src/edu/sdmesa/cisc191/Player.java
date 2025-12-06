@@ -19,13 +19,22 @@
 */
 package edu.sdmesa.cisc191;
 
-/**
- * Purpose: The reponsibility of Player is ...
- *
- * Player is-a ...
- * Player is ...
- */
-public abstract class Player
-{
-	public void move() {}
+
+public abstract class Player {
+
+    private int playerNumber;
+
+    public Player(int playerNumber) {
+        this.playerNumber = playerNumber;
+    }
+
+    public int getPlayerNumber() {
+        return playerNumber;
+    }
+
+    // Human player ignores computer logic
+    public abstract boolean isComputer();
+
+    // Return column the player chooses
+    public abstract int chooseColumn(GameModel model);
 }

@@ -16,15 +16,19 @@
 package edu.sdmesa.cisc191;
 
 
-public class HumanPlayer extends Player
-{
-	private String name; //a human player has a name
-	
-	public HumanPlayer(String name) {
-		this.name = name;
-	}
-	
-	public void move(int row, int col) {
-		
-	}
+public class HumanPlayer extends Player {
+
+    public HumanPlayer(int playerNumber) {
+        super(playerNumber);
+    }
+
+    @Override
+    public boolean isComputer() {
+        return false;
+    }
+
+    @Override
+    public int chooseColumn(GameModel model) {
+        return -1; // Human chooses by buttons, not random
+    }
 }

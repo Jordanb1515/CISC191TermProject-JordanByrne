@@ -19,17 +19,21 @@
 */
 package edu.sdmesa.cisc191;
 
-/**
- * Purpose: The reponsibility of ComputerPlayer is ...
- *
- * ComputerPlayer is-a ...
- * ComputerPlayer is ...
- */
-public class ComputerPlayer extends Player
-{
-	private String name = "Computer";
-	
-	public ComputerPlayer() {
-		
-	}
+
+public class ComputerPlayer extends Player {
+
+
+    public ComputerPlayer(int playerNumber) {
+        super(playerNumber);
+    }
+
+    @Override
+    public boolean isComputer() {
+        return true;
+    }
+
+    @Override
+    public int chooseColumn(GameModel model) {
+		return 0;
+    }
 }

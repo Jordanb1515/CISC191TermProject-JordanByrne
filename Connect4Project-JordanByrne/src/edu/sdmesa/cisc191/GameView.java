@@ -28,6 +28,18 @@ public class GameView extends JFrame
 	 */
 	public GameView(GameModel model)
 	{
+		//first ask user if they want a 1 or 2 player game
+		String[] options = {"One Player", "Two Player"};
+		int choice = JOptionPane.showOptionDialog(this, "Select Game Mode:", "Game Mode",
+		        JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+
+		if (choice == 0) {
+		    // Player 1 is Human, Player 2 is a computer
+		    model.setPlayers(new HumanPlayer(1), new ComputerPlayer(2));
+		} else {
+		    // Or both human
+		    model.setPlayers(new HumanPlayer(1), new HumanPlayer(2));
+		}
 		
 		this.model = model;
 		//set title and layout 

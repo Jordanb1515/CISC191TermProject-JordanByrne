@@ -24,6 +24,8 @@ public class GameModel
 	public static final int COLUMNS = 7;
 	private int[][] grid = new int[ROWS][COLUMNS]; //2D array to resemble a grid pattern for the game
 	private int totalSpaces = 42; //max number of turns
+	private Player player1; //a game has a player 1
+	private Player player2;  //a game has a player 2
 	
 
 	/**
@@ -83,6 +85,19 @@ public class GameModel
     	    currentPlayer = 2;
     	} else {
     	    currentPlayer = 1;
+    	}
+    }
+    
+    public void setPlayers(Player p1, Player p2) {
+        player1 = p1;
+        player2 = p2;
+    }
+
+    public Player getCurrentPlayerObject() {
+    	if (currentPlayer == 1) {
+    	    return player1;
+    	} else {
+    	    return player2;
     	}
     }
 	
