@@ -23,17 +23,23 @@ package edu.sdmesa.cisc191;
 public class ComputerPlayer extends Player {
 
 
+    private ComputerAI ai = new ComputerAI(); 
+
+
     public ComputerPlayer(int playerNumber) {
         super(playerNumber);
     }
+
 
     @Override
     public boolean isComputer() {
         return true;
     }
 
+
     @Override
     public int chooseColumn(GameModel model) {
-		return 0;
+        return ai.chooseColumn(model);
     }
 }
+
