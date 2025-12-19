@@ -1,44 +1,54 @@
 /**
 * Lead Author(s):
-* @author jab45; student ID
-* @author Full name; student ID
-* <<Add additional lead authors here>>
-*
-* Other Contributors:
-* Full name; student ID or contact information if not in class
-* <<Add additional contributors (mentors, tutors, friends) here, with contact information>>
+* @author Jordan Byrne, jbyrne@student.sdccd.edu
 *
 * References:
 * Morelli, R., & Walde, R. (2016).
 * Java, Java, Java: Object-Oriented Problem Solving
 * https://open.umn.edu/opentextbooks/textbooks/java-java-java-object-oriented-problem-solving
 *
-* <<Add more references here>>
 *
-* Version: 2025-11-09
+* Version: 2025/11/9, 1.0
+* 
+* Purpose: Responsibilities of ComputerPlayer class
 */
 package edu.sdmesa.cisc191;
 
 
-public class ComputerPlayer extends Player {
+public class ComputerPlayer extends Player{
+	
+    private ComputerAI ai = new ComputerAI(); //logic for computer's moves
 
-
-    private ComputerAI ai = new ComputerAI(); 
-
-
-    public ComputerPlayer(int playerNumber) {
+    /**
+     * Constructor for ComputerPlayer with the given player number
+     * 
+     * @param playerNumber the player number
+     */
+    public ComputerPlayer(int playerNumber)
+    {
         super(playerNumber);
     }
 
-
+    /**
+     * Tell that this player is a computer
+     * 
+     * @return true, since this is a computer player
+     */
     @Override
-    public boolean isComputer() {
+    public boolean isComputer()
+    {
         return true;
     }
 
-
+    /**
+     * Chooses a column using the computer logic
+     * 
+     * @param model the current game model
+     * @return the selected column index
+     */
     @Override
-    public int chooseColumn(GameModel model) {
+    public int chooseColumn(GameModel model)
+    {
         return ai.chooseColumn(model);
     }
 }

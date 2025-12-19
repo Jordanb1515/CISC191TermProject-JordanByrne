@@ -28,10 +28,9 @@ public class GameButtonListener implements ActionListener
     private GameButton gameButton;
 
     /**
-     * Constructor for the GameButtonListener class
+     * Constructor for GameButtonListener class
      */
-    public GameButtonListener(GameModel gameModel, GameView gameView,
-                              GameButton gameButton)
+    public GameButtonListener(GameModel gameModel, GameView gameView, GameButton gameButton)
     {
         this.gameModel = gameModel;
         this.gameView = gameView;
@@ -66,18 +65,19 @@ public class GameButtonListener implements ActionListener
             gameModel.getGrid()[row][col] = playerVal;
 
             // update button appearance
-            gameButton.setText("●");
-            gameButton.setFont(new Font("Arial", Font.BOLD, 36));
+            gameView.updateBoardButton(row, col, playerVal);
 
-            if (playerVal == 1) {
-                gameButton.setForeground(Color.RED);
-            } else {
-                gameButton.setForeground(Color.YELLOW);
+            // check for win
+            if (gameModel.checkWin(row, col, playerVal)) {
+                gameView.showWinMessage(playerVal);
+                gameModel.saveWinnerToFile(playerVal);
+                gameView.disableBoard();
+                return;
             }
 
             // switch control to other player
             gameModel.togglePlayer();
-            gameView.updateUI();
+            gameView.updateTurnLabel();
 
             // decide whose has next turn
             Player next = gameModel.getCurrentPlayerObject();
@@ -96,19 +96,17 @@ public class GameButtonListener implements ActionListener
     }
 
     /**
-    * Purpose: Take computer's move
-    */
+     * Purpose: Chooses the computer player's move
+     */
     private void makeComputerMove()
     {
         Player cpu = gameModel.getCurrentPlayerObject();
-
-        // check which column to play
         int col = cpu.chooseColumn(gameModel);
 
         int[][] grid = gameModel.getGrid();
+        int row = -1;
 
         // find lowest row in chosen column
-        int row = -1;
         for (int r = GameModel.ROWS - 1; r >= 0; r--) {
             if (grid[r][col] == 0) {
                 row = r;
@@ -117,15 +115,24 @@ public class GameButtonListener implements ActionListener
         }
 
         // check if column is full
-        if (row == -1) 
-        	return;
+        if (row == -1) {
+            return;
+        }
 
         // place computer piece
         grid[row][col] = cpu.getPlayerNumber();
         gameView.updateBoardButton(row, col, cpu.getPlayerNumber());
 
+        // check for win
+        if (gameModel.checkWin(row, col, cpu.getPlayerNumber())) {
+            gameView.showWinMessage(cpu.getPlayerNumber());
+            gameModel.saveWinnerToFile(cpu.getPlayerNumber());
+            gameView.disableBoard();
+            return;
+        }
+
         // switch to human player
         gameModel.togglePlayer();
-        gameView.updateUI();
+        gameView.updateTurnLabel();
     }
 }

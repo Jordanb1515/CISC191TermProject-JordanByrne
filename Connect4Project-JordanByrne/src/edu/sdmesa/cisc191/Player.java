@@ -8,26 +8,46 @@
 * https://open.umn.edu/opentextbooks/textbooks/java-java-java-object-oriented-problem-solving
 *
 *
-* Version: 2025-11-09
+* Version: 2025/11/9, 1.0
 */
 package edu.sdmesa.cisc191;
 
 
-public abstract class Player {
-
+public abstract class Player{
     private int playerNumber;
 
-    public Player(int playerNumber) {
+    /**
+     * Constructor for Player with the given player number
+     * 
+     * @param playerNumber the player number
+     */
+    public Player(int playerNumber)
+    {
         this.playerNumber = playerNumber;
     }
 
-    public int getPlayerNumber() {
+    /**
+     * Returns players number
+     * 
+     * @return the player number
+     */
+    public int getPlayerNumber()
+    {
         return playerNumber;
     }
 
-    // Human player ignores computer logic
+    /**
+     * Tells whether this is a computer player
+     * 
+     * @return true if computer or false if human
+     */
     public abstract boolean isComputer();
 
-    // Return column the player chooses
+    /**
+     * Determines which column the player chooses to place a piece
+     * 
+     * @param model the current game model
+     * @return the chosen column index
+     */
     public abstract int chooseColumn(GameModel model);
 }

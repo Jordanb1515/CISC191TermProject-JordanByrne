@@ -94,21 +94,13 @@ public class GameView extends JFrame
         setVisible(true);
     }
 
-    public static void main(String[] args)
-    {
-        new GameView(new GameModel());
-    }
-
     /**
      * Purpose: Update GUI for user
      */
-    public void updateUI()
+    public void updateTurnLabel()
     {
-        if (model.getTotalSpaces() % 2 == 0) {
-            turnLabel.setText("Player 1's Turn");
-        } else {
-            turnLabel.setText("Player 2's Turn");
-        }
+        int currentPlayer = model.getCurrentPlayerObject().getPlayerNumber();
+        turnLabel.setText("Player " + currentPlayer + "'s Turn");
     }
 
     /**
@@ -128,5 +120,36 @@ public class GameView extends JFrame
         } else {
             b.setForeground(Color.YELLOW);
         }
+    }
+    
+    /**
+     * Purpose: Display message for winner of the game
+     * @param player , who won the game
+     */
+    public void showWinMessage(int player)
+    {
+        JOptionPane.showMessageDialog(
+            this,
+            "Player " + player + " wins!",
+            "Game Over",
+            JOptionPane.INFORMATION_MESSAGE
+        );
+    }
+    
+    /**
+     * Purpose: Disables buttons once game has ended
+     */
+    public void disableBoard()
+    {
+        for (int i = 0; i < model.ROWS; i++) {
+            for (int j = 0; j < model.COLUMNS; j++) {
+                buttons[i][j].setEnabled(false);
+            }
+        }
+    }
+    
+    public static void main(String[] args)
+    {
+        new GameView(new GameModel());
     }
 }
